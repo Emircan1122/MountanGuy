@@ -58,19 +58,19 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
-        android:id="@+id/registerpasswort"
+        android:id="@+id/registeremail"
         android:layout_width="319dp"
         android:layout_height="83dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="Passwort"
-        android:inputType="textPassword"
+        android:hint="E-Mail"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registername" />
 
     <EditText
-        android:id="@+id/registerpasswort2"
+        android:id="@+id/registerpasswort"
         android:layout_width="319dp"
         android:layout_height="83dp"
         android:layout_marginTop="8dp"
@@ -79,7 +79,7 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerpasswort" />
+        app:layout_constraintTop_toBottomOf="@+id/registeremail" />
 
     <Button
         android:id="@+id/registerbutton"
@@ -90,7 +90,7 @@
         android:text="Account erstellen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/registerpasswort2" />
+        app:layout_constraintTop_toBottomOf="@+id/registerpasswort" />
 
     <TextView
         android:id="@+id/textView3"

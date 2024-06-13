@@ -3,6 +3,9 @@ package com.example.mountanguy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +15,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
 
+private EditText namelogin , passwortlogin;
+private Button buttonlogin;
+private DataBaseHelper myDB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +28,30 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+namelogin = findViewById(R.id.loginname);
+passwortlogin = findViewById(R.id.loginpasswort);
 
+buttonlogin = findViewById(R.id.loginbutton);
 
+myDB = new DataBaseHelper(this);
+
+loginUser();
+
+        }
+        private void loginUser(){
+        buttonlogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                boolean var = myDB.checkUser(namelogin.getText().toString() , passwortlogin.getText().toString());
+                if(var){
+                    Toast.makeText(MainActivity.this, "Anmeldung Erfolgreich", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this , Home.class));
+                    finish();
+                }else{
+                    Toast.makeText(MainActivity.this, "Fehler bei der Anmeldung", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         }
         public void launchRegistration(View v){
 
@@ -35,4 +63,5 @@ public class MainActivity extends AppCompatActivity {
         Intent h = new Intent(this, Home.class);
         startActivity(h);
     }
+
 }
