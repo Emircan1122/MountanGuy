@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".personalisierung">
 
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -20,18 +19,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/geschlechtinput"
-        android:layout_width="319dp"
-        android:layout_height="83dp"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:hint="Geschlecht"
-        android:inputType="text"
+
+    <Spinner
+        android:id="@+id/spinner1"
+        android:layout_width="281dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="60dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:backgroundTint="@color/gray"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
 
     <EditText
         android:id="@+id/alterinput"
@@ -43,7 +44,8 @@
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/geschlechtinput" />
+        app:layout_constraintTop_toBottomOf="@+id/spinner1" />
+
 
     <EditText
         android:id="@+id/größeinput"
@@ -57,6 +59,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/alterinput" />
 
+
     <EditText
         android:id="@+id/gewichtinput"
         android:layout_width="319dp"
@@ -69,13 +72,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/größeinput" />
 
+
     <Button
-        android:id="@+id/loginbutton"
+        android:id="@+id/weiterbutton"
         android:layout_width="175dp"
         android:layout_height="48dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="116dp"
-        android:onClick="launchANiveau"
+        android:backgroundTint="@color/blue"
+        android:onClick="applyChange"
         android:text="Weiter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gewichtinput" />

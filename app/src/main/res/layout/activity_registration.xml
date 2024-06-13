@@ -88,6 +88,7 @@
         android:layout_marginTop="60dp"
         android:onClick="launchPersonalisierung"
         android:text="Account erstellen"
+        android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerpasswort" />

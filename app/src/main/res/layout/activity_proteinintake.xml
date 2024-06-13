@@ -35,33 +35,33 @@
 
     <Button
         android:id="@+id/button"
-
         android:layout_width="239dp"
         android:layout_height="57dp"
         android:layout_marginTop="52dp"
-        android:text="wie Leistungssportler"
+        android:text="sehr Proteinhaltig"
+        android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
         android:id="@+id/button2"
-
         android:layout_width="239dp"
         android:layout_height="57dp"
         android:layout_marginTop="40dp"
-        android:text="die goldene Mitte"
+        android:text="Der Goldenen Mitte entsprechend"
+        android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <Button
         android:id="@+id/button3"
-
         android:layout_width="239dp"
         android:layout_height="57dp"
         android:layout_marginTop="40dp"
-        android:text="wie der durschnittliche Bürger"
+        android:text="Durchschnittlich"
+        android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
@@ -74,6 +74,7 @@
         android:layout_marginBottom="52dp"
         android:onClick="launchZiel"
         android:text="zurück"
+        android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -85,6 +86,7 @@
         android:layout_marginBottom="52dp"
         android:onClick="launchsamplebedarf"
         android:text="Weiter"
+        android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
