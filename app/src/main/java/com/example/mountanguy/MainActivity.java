@@ -1,7 +1,10 @@
 package com.example.mountanguy;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,14 +30,14 @@ private DataBaseHelper myDB;
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+
         });
-namelogin = findViewById(R.id.loginname);
-passwortlogin = findViewById(R.id.loginpasswort);
+            namelogin = findViewById(R.id.loginname);
+            passwortlogin = findViewById(R.id.loginpasswort);
+            buttonlogin = findViewById(R.id.loginbutton);
 
-buttonlogin = findViewById(R.id.loginbutton);
-
-myDB = new DataBaseHelper(this);
-
+            myDB = new DataBaseHelper(this);
+            myDB.resetDatabase();
 loginUser();
 
         }

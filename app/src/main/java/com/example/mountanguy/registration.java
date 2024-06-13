@@ -2,6 +2,7 @@ package com.example.mountanguy;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,11 @@ public class registration extends AppCompatActivity {
                 boolean var = myDB.registerUser(nameregister.getText().toString() , emailregister.getText().toString() , passwordregister.getText().toString());
                 if(var){
                     Toast.makeText(registration.this, "Benutzer Erfolgreich Registriert!", Toast.LENGTH_SHORT).show();
+                    Log.d("neue Anmeldung: " ,
+                                "Name: " +nameregister.getText().toString()+
+                                    " Email: "+emailregister.getText().toString()+
+                                    " Passwort: "+passwordregister.getText().toString());
+                    launchPersonalisierung(v);
                 }
                 else
                     Toast.makeText(registration.this, "Fehler Bei Der Registration!", Toast.LENGTH_SHORT).show();
