@@ -1,10 +1,7 @@
 package com.example.mountanguy;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
 private EditText namelogin , passwortlogin;
 private Button buttonlogin;
-private DataBaseHelper myDB;
+private DataBaseHelper DB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,16 +33,23 @@ private DataBaseHelper myDB;
             passwortlogin = findViewById(R.id.loginpasswort);
             buttonlogin = findViewById(R.id.loginbutton);
 
-            myDB = new DataBaseHelper(this);
-            myDB.resetDatabase();
-loginUser();
+
+            DB = DataBaseHelper.getInstance(this);
+            DB.openDatabase();
+
+
+
+
+
+        loginUser();
 
         }
+
         private void loginUser(){
         buttonlogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                boolean var = myDB.checkUser(namelogin.getText().toString() , passwortlogin.getText().toString());
+                boolean var = DB.checkUser(namelogin.getText().toString() , passwortlogin.getText().toString());
                 if(var){
                     Toast.makeText(MainActivity.this, "Anmeldung Erfolgreich", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(MainActivity.this , Home.class));

@@ -21,29 +21,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/geschlechtinput"
-        android:layout_width="319dp"
-        android:layout_height="83dp"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:hint="Geschlecht"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <EditText
         android:id="@+id/alterinput"
         android:layout_width="319dp"
         android:layout_height="83dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
         android:hint="Alter"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/geschlechtinput" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <EditText
         android:id="@+id/größeinput"
@@ -70,15 +57,38 @@
         app:layout_constraintTop_toBottomOf="@+id/größeinput" />
 
     <Button
-        android:id="@+id/loginbutton"
+        android:id="@+id/personalisierungsbutton"
         android:layout_width="175dp"
         android:layout_height="48dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="116dp"
-        android:onClick="launchANiveau"
+        android:layout_marginTop="52dp"
+        android:onClick="applyChange"
         android:text="Weiter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gewichtinput" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/geschlechtinput" />
+
+    <RadioGroup
+        android:id="@+id/geschlechtinput"
+        android:layout_width="291dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gewichtinput">
+
+        <RadioButton
+            android:id="@+id/männlich"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mänlich" />
+
+        <RadioButton
+            android:id="@+id/weiblich"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Weiblich" />
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
