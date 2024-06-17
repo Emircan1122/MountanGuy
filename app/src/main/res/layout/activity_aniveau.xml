@@ -22,33 +22,33 @@
 
     <Button
         android:id="@+id/button"
+
         android:layout_width="239dp"
         android:layout_height="57dp"
         android:layout_marginTop="52dp"
         android:text="Hoch"
-        android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <Button
         android:id="@+id/button2"
+
         android:layout_width="239dp"
         android:layout_height="57dp"
         android:layout_marginTop="40dp"
         android:text="Durchschnittlich"
-        android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <Button
         android:id="@+id/button3"
+
         android:layout_width="239dp"
         android:layout_height="57dp"
         android:layout_marginTop="40dp"
         android:text="Niedrig"
-        android:backgroundTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button2" />
@@ -61,7 +61,6 @@
         android:layout_marginBottom="52dp"
         android:onClick="launchPersonalisierung"
         android:text="zurück"
-        android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -73,7 +72,6 @@
         android:layout_marginBottom="52dp"
         android:onClick="launchZiel"
         android:text="Weiter"
-        android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

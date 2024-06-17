@@ -36,7 +36,6 @@
         android:layout_marginBottom="52dp"
         android:onClick="launchproteinintake"
         android:text="zurück"
-        android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -48,7 +47,6 @@
         android:layout_marginBottom="52dp"
         android:onClick="launchAngemeldet"
         android:text="fertig"
-        android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
