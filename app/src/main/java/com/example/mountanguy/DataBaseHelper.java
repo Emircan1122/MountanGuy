@@ -5,27 +5,71 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
-
-    private static final String DATABASE_NAME = "USER_RECORD";
-    private static final String TABLE_NAME = "USER_DATA";
-    private static final String COL_1 = "ID";
-    private static final String COL_2 = "USERNAME";
-    private static final String COL_3 = "EMAIL";
-    private static final String COL_4 = "PASSWORD";
+    private static DataBaseHelper instance;
+    private SQLiteDatabase db;
+    protected static final int DATABASE_VERSION = 1;
+    protected static final String DATABASE_NAME = "USER_RECORD";
+    protected static final String TABLE_NAME = "USER_DATA";
+    protected static final String COL_1 = "ID";
+    protected static final String COL_2 = "USERNAME";
+    protected static final String COL_3 = "EMAIL";
+    protected static final String COL_4 = "PASSWORD";
+    protected static final String COL_5 = "USERGESCHLECHT";
+    protected static final String COL_6 = "USERALTER";
+    protected static final String COL_7 = "USERGRÖßE";
+    protected static final String COL_8 = "USERGEWICHT";
+    protected static final String COL_9 = "USERNIVEAU";
+    protected static final String COL_10 = "USER_ZIEL_GEWICHT";
+    protected static final String COL_11 = "USER_ZIEL_PROTEIN";
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-      db.execSQL("CREATE TABLE IF NOT EXISTS "+TABLE_NAME+ "(ID INTEGER PRIMARY KEY AUTOINCREMENT , USER TEXT , EMAIL TEXT , PASSWORD TEXT)");
+
+    //synchronisiert die Datenbank über die Verschiedenen Activities
+    public static synchronized DataBaseHelper getInstance(Context context) {
+        if (instance == null) {
+            instance = new DataBaseHelper(context.getApplicationContext());
+        }
+        return instance;
     }
 
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        createTable(db);
+
+    }
+
+    public void resetDatabase() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        createTable(db);
+    }
+
+    private void createTable(SQLiteDatabase db) {
+        String createTableQuery = "CREATE TABLE " + TABLE_NAME + " ("
+                + COL_1 + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_2 + " TEXT, "
+                + COL_3 + " TEXT, "
+                + COL_4 + " TEXT, "
+                + COL_5 + " TEXT, "
+                + COL_6 + " Text, "
+                + COL_7 + " TEXT, "
+                + COL_8 + " TEXT, "
+                + COL_9 + " TEXT, "
+                + COL_10 + " TEXT,"
+                + COL_11 + "Text)";
+        db.execSQL(createTableQuery);
+    }
+
+    //Checkt ob Datenbank existiert
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(" DROP TABLE IF EXISTS " + TABLE_NAME);
@@ -33,26 +77,29 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean registerUser(String username , String email , String password){
+
+
+    public boolean registerUser(String username, String email, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COL_2,username);
-        values.put(COL_3,email);
+        values.put(COL_2, username);
+        values.put(COL_3, email);
         values.put(COL_4, password);
-
-        long result = db.insert(TABLE_NAME , null, values);
-        if(result == -1)
+        long result = db.insert(TABLE_NAME, null, values);
+        if (result == -1)
             return false;
         else
             return true;
     }
 
-    public boolean checkUser(String username, String password){
+
+
+   /* public boolean checkUser(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String [] columns = {COL_1};
-        String selection = COL_2 + "=?" + "and" + COL_4 + "=?";
-        String [] selectionargs = {username , password};
-        Cursor cursor = db.query(TABLE_NAME,columns,selection,selectionargs,null,null,null);
+        String[] columns = {COL_1};
+        String selection = COL_2 + "=?" + " and " + COL_4 + "=?";
+        String[] selectionargs = {username, password};
+        Cursor cursor = db.query(TABLE_NAME, columns, selection, selectionargs, null, null, null);
         int count = cursor.getCount();
         db.close();
         cursor.close();
@@ -60,7 +107,65 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return true;
         else
             return false;
+    }*/
+    public boolean checkusername(String USERNAME){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from USER_DATA where USERNAME = ?", new String []{USERNAME});
+        if(cursor.getCount()>0)
+            return true;
+        else
+            return false;
+    }
+    public boolean checkuseremail(String USERNAME){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from USER_DATA where EMail = ?", new String []{USERNAME});
+        if(cursor.getCount()>0)
+            return true;
+        else
+            return false;
+    }
+
+    public boolean checkusernamepassword(String USERNAME, String PASSWORD){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("Select * from USER_DATA where USERNAME = ? and PASSWORD = ?", new String[] {USERNAME,PASSWORD});
+        if(cursor.getCount()>0)
+            return true;
+        else
+            return false;
+    }
+
+    public void insertIntoDatabase(String userID, String col, Object value) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        if (value instanceof String) {
+            contentValues.put(col, (String) value);
+        } else if (value instanceof Integer) {
+            contentValues.put(col, (Integer) value);
+        } else {
+            throw new IllegalArgumentException("Dieser Datentyp wird nicht unterstützt");
+        }
+
+        // Beispiel: Aktualisieren der Zeile mit der gegebenen userID
+        int rowsAffected = db.update(TABLE_NAME, contentValues, COL_1 + " = ?", new String[]{userID});
+
+        if (rowsAffected > 0) {
+            Log.d("DataBaseHelper", "Daten erfolgreich aktualisiert für UserID: " + userID);
+        } else {
+            Log.d("DataBaseHelper", "Fehler beim Aktualisieren der Daten für UserID: " + userID);
+
+
+        }
+    }
+
+
+    public SQLiteDatabase openDatabase() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Log.d("TAG", "Database opened");
+        return db;
+    }
+
+    public void closeDatabase() {
+        this.close();
+        Log.d("TAG", "Database closed");
     }
 }
-
-
