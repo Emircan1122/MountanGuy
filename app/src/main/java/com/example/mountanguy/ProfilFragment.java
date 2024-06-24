@@ -58,10 +58,10 @@ public class ProfilFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.fragment_profil, container, false);
 
-        // Initialize your variables here
+
         alter = view.findViewById(R.id.alterinput);
         größe = view.findViewById(R.id.größeinput);
         gewicht = view.findViewById(R.id.gewichtinput);
@@ -73,12 +73,11 @@ public class ProfilFragment extends Fragment {
         db = DataBaseHelper.getInstance(getContext());
 
 
-        // Initialize and set up the spinner
         String[] geschlechtItems = new String[]{"Wählen", "Männlich", "Weiblich"};
         ArrayAdapter<String> geschlechtAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, geschlechtItems);
         spinner1.setAdapter(geschlechtAdapter);
 
-        // Initialize and set up the second spinner
+
         String[] niveauItems = new String[]{"Wählen", "Niedrig", "Mittel", "Hoch"};
         ArrayAdapter<String> niveauAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, niveauItems);
         spinner2.setAdapter(niveauAdapter);
