@@ -14,18 +14,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     private SQLiteDatabase db;
     protected static final int DATABASE_VERSION = 1;
     protected static final String DATABASE_NAME = "USER_RECORD";
-    protected static final String TABLE_NAME = "USER_DATA";
-    protected static final String COL_1 = "ID";
-    protected static final String COL_2 = "USERNAME";
-    protected static final String COL_3 = "EMAIL";
-    protected static final String COL_4 = "PASSWORD";
-    protected static final String COL_5 = "USERGESCHLECHT";
-    protected static final String COL_6 = "USERALTER";
-    protected static final String COL_7 = "USERGRÖßE";
-    protected static final String COL_8 = "USERGEWICHT";
-    protected static final String COL_9 = "USERNIVEAU";
-    protected static final String COL_10 = "USER_ZIEL_GEWICHT";
-    protected static final String COL_11 = "USER_ZIEL_PROTEIN";
+    public static final String TABLE_NAME = "USER_DATA";
+    public static final String COL_1 = "ID";
+    public static final String COL_2 = "USERNAME";
+    public static final String COL_3 = "EMAIL";
+    public static final String COL_4 = "PASSWORD";
+    public static final String COL_5 = "USERGESCHLECHT";
+    public static final String COL_6 = "USERALTER";
+    public static final String COL_7 = "USERGRÖßE";
+    public static final String COL_8 = "USERGEWICHT";
+    public static final String COL_9 = "USERNIVEAU";
+    public static final String COL_10 = "USER_ZIEL_GEWICHT";
+    public static final String COL_11 = "USER_ZIEL_PROTEIN";
 
     public DataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -65,7 +65,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 + COL_8 + " TEXT, "
                 + COL_9 + " TEXT, "
                 + COL_10 + " TEXT,"
-                + COL_11 + "Text)";
+                + COL_11 + " TEXT)";
         db.execSQL(createTableQuery);
     }
 
@@ -92,9 +92,62 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
+  /*  public boolean userDataUpdate(String userGeschlecht, String userAlter, String userGröße, String userGewicht, String userNiveau, String userZielGewicht, String userZielProtein) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_5, userGeschlecht);
+        values.put(COL_6, userAlter);
+        values.put(COL_7, userGröße);
+        values.put(COL_8, userGewicht);
+        values.put(COL_9, userNiveau);
+        values.put(COL_10, userZielGewicht);
+        values.put(COL_11, userZielProtein);
+
+        long result = db.insert(TABLE_NAME, null, values);
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }*/
+
+    public boolean updateUserInfo(String username, String userGeschlecht, String userAlter, String userGröße, String userGewicht, String userNiveau, String userZielGewicht, String userZielProtein) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_5, userGeschlecht);
+        values.put(COL_6, userAlter);
+        values.put(COL_7, userGröße);
+        values.put(COL_8, userGewicht);
+        values.put(COL_9, userNiveau);
+        values.put(COL_10, userZielGewicht);
+        values.put(COL_11, userZielProtein);
+
+        int rowsAffected = db.update(TABLE_NAME, values, COL_2 + " = ?", new String[]{username});
+        db.close();
+
+        Log.d("UpdateUserInfo", "Username: " + username);
+        Log.d("UpdateUserInfo", "Rows affected: " + rowsAffected);
+
+        return rowsAffected>0;
+
+    }
+
+    /*public boolean updateUserData(String username, String userGeschlecht, String userAlter, String userGröße, String userGewicht, String userNiveau, String userZielGewicht, String userZielProtein) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_5, userGeschlecht);
+        values.put(COL_6, userAlter);
+        values.put(COL_7, userGröße);
+        values.put(COL_8, userGewicht);
+        values.put(COL_9, userNiveau);
+        values.put(COL_10, userZielGewicht);
+        values.put(COL_11, userZielProtein);
+
+        int rowsAffected = db.update(TABLE_NAME, values, COL_2 + " = ?", new String[]{username});
+        return rowsAffected > 0;
+    }*/
 
 
-   /* public boolean checkUser(String username, String password) {
+    /* public boolean checkUser(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
         String[] columns = {COL_1};
         String selection = COL_2 + "=?" + " and " + COL_4 + "=?";
@@ -133,6 +186,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         else
             return false;
     }
+
+    public Cursor getUserData(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + COL_2 + " = ?", new String[]{username});
+    }
+
 
     public void insertIntoDatabase(String userID, String col, Object value) {
         SQLiteDatabase db = this.getWritableDatabase();

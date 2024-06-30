@@ -2,15 +2,26 @@ package com.example.mountanguy;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static com.example.mountanguy.DataBaseHelper.COL_5;
+import static com.example.mountanguy.DataBaseHelper.COL_6;
+import static com.example.mountanguy.DataBaseHelper.COL_7;
+import static com.example.mountanguy.DataBaseHelper.COL_8;
+import static com.example.mountanguy.DataBaseHelper.COL_9;
+import static com.example.mountanguy.DataBaseHelper.COL_10;
+import static com.example.mountanguy.DataBaseHelper.COL_11;
 
 import androidx.fragment.app.Fragment;
 
@@ -24,6 +35,7 @@ public class ProfilFragment extends Fragment {
     private Spinner spinner2;
     private Spinner spinner3;
     private Spinner spinner4;
+    private Button aktualisierenbutton1;
     private DataBaseHelper db;
     private TextView profilUsername;
 
@@ -69,6 +81,7 @@ public class ProfilFragment extends Fragment {
         spinner2 = view.findViewById(R.id.spinner2);
         spinner3 = view.findViewById(R.id.spinner3);
         spinner4 = view.findViewById(R.id.spinner4);
+        aktualisierenbutton1 = view.findViewById(R.id.aktualisierenbutton);
         profilUsername = view.findViewById(R.id.profilUsername);
         db = DataBaseHelper.getInstance(getContext());
 
@@ -95,11 +108,62 @@ public class ProfilFragment extends Fragment {
 
         if (!loggedInUser.isEmpty()) {
             profilUsername.setText(loggedInUser);
+            loadUserData(loggedInUser);
         }
+
+        aktualisierenbutton1.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                String userAlter = alter.getText().toString();
+                String userGröße = größe.getText().toString();
+                String userGewicht = gewicht.getText().toString();
+                String userGeschlecht = spinner1.getSelectedItem().toString();
+                String userNiveau = spinner2.getSelectedItem().toString();
+                String userZielGewicht = spinner3.getSelectedItem().toString();
+                String userZielProtein = spinner4.getSelectedItem().toString();
+
+                if (userAlter.equals("") || userGröße.equals("") || userGewicht.equals("") || userGeschlecht.equals("Wählen")|| userNiveau.equals("Wählen")|| userZielGewicht.equals("Wählen") || userZielProtein.equals("Wählen"))
+                    Toast.makeText(getActivity(), "Bitte geben sie ihre Daten vollständig ein", Toast.LENGTH_SHORT).show();
+                else {
+                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("login",Context.MODE_PRIVATE);
+                    String loggedInUser = sharedPreferences.getString("username","");
+                    Log.d("Aktualisieren 1: ",
+                            "funktioniert 1");
+
+                    if(!loggedInUser.isEmpty()){
+                        Log.d("Aktualisieren 2: ",
+                                "funktioniert 2");
+                        boolean isUpdated = db.updateUserInfo(loggedInUser,userGeschlecht,userAlter,userGröße,userGewicht,userNiveau,userZielGewicht,userZielProtein);
+                        if(isUpdated){
+                            Toast.makeText(getActivity(), "Erfolgreich aktualisiert", Toast.LENGTH_SHORT).show();
+                            Log.d("Aktualisieren der Daten Erfolgreich: ",
+                                    "funktioniert");
+
+                        } else{
+                            Toast.makeText(getActivity(), "Fehler Beim Aktualisieren der Daten", Toast.LENGTH_SHORT).show();
+                            Log.d("Aktualisieren der Daten nicht erfolgreich: ",
+                                    "funktioniert nicht");
+                        }
+                    }
+                }
+                }
+            });
 
         return view;
     }
 
-
+    private void loadUserData(String username) {
+        Cursor cursor = db.getUserData(username);
+        if (cursor != null && cursor.moveToFirst()) {
+            alter.setText(cursor.getString(cursor.getColumnIndexOrThrow(COL_6)));
+            größe.setText(cursor.getString(cursor.getColumnIndexOrThrow(COL_7)));
+            gewicht.setText(cursor.getString(cursor.getColumnIndexOrThrow(COL_8)));
+            spinner1.setSelection(((ArrayAdapter<String>) spinner1.getAdapter()).getPosition(cursor.getString(cursor.getColumnIndexOrThrow(COL_5))));
+            spinner2.setSelection(((ArrayAdapter<String>) spinner2.getAdapter()).getPosition(cursor.getString(cursor.getColumnIndexOrThrow(COL_9))));
+            spinner3.setSelection(((ArrayAdapter<String>) spinner3.getAdapter()).getPosition(cursor.getString(cursor.getColumnIndexOrThrow(COL_10))));
+            spinner4.setSelection(((ArrayAdapter<String>) spinner4.getAdapter()).getPosition(cursor.getString(cursor.getColumnIndexOrThrow(COL_11))));
+            cursor.close();
+        }
+    }
 
 }

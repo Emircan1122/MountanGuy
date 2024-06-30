@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         buttonlogin = findViewById(R.id.loginbutton);
 
         myDB = DataBaseHelper.getInstance(this);
-
+/*myDB.resetDatabase();*/
         myDB.openDatabase();
 
 
