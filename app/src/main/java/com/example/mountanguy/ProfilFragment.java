@@ -125,24 +125,35 @@ public class ProfilFragment extends Fragment {
                 if (userAlter.equals("") || userGröße.equals("") || userGewicht.equals("") || userGeschlecht.equals("Wählen")|| userNiveau.equals("Wählen")|| userZielGewicht.equals("Wählen") || userZielProtein.equals("Wählen"))
                     Toast.makeText(getActivity(), "Bitte geben sie ihre Daten vollständig ein", Toast.LENGTH_SHORT).show();
                 else {
-                    SharedPreferences sharedPreferences = getContext().getSharedPreferences("login",Context.MODE_PRIVATE);
-                    String loggedInUser = sharedPreferences.getString("username","");
-                    Log.d("Aktualisieren 1: ",
-                            "funktioniert 1");
+                    if (Integer.parseInt(userAlter) > 122) { //die älteste Person der Welt verstarb im Alter von 122
+                        Toast.makeText(getActivity(), "geben sie ein realistisches Alter ein", Toast.LENGTH_SHORT).show();
+                    } else if (Integer.parseInt(userGröße) > 272) { //größter Mensch der Welt
+                        Toast.makeText(getActivity(), "geben sie eine realistische Körpergröße ein", Toast.LENGTH_SHORT).show();
+                    } else if (Integer.parseInt(userGröße) < 54.6) { //kleinster Mnesch der Welt
+                        Toast.makeText(getActivity(), "geben sie eine realistische Körpergröße ein", Toast.LENGTH_SHORT).show();
+                    } else if (Integer.parseInt(userGewicht) > 590) { // schwerster Mensch der Welt
+                        Toast.makeText(getActivity(), "geben sie ein realistisches Gewicht ein", Toast.LENGTH_SHORT).show();
+                    } else {
 
-                    if(!loggedInUser.isEmpty()){
-                        Log.d("Aktualisieren 2: ",
-                                "funktioniert 2");
-                        boolean isUpdated = db.updateUserInfo(loggedInUser,userGeschlecht,userAlter,userGröße,userGewicht,userNiveau,userZielGewicht,userZielProtein);
-                        if(isUpdated){
-                            Toast.makeText(getActivity(), "Erfolgreich aktualisiert", Toast.LENGTH_SHORT).show();
-                            Log.d("Aktualisieren der Daten Erfolgreich: ",
-                                    "funktioniert");
+                        SharedPreferences sharedPreferences = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
+                        String loggedInUser = sharedPreferences.getString("username", "");
+                        Log.d("Aktualisieren 1: ",
+                                "funktioniert 1");
 
-                        } else{
-                            Toast.makeText(getActivity(), "Fehler Beim Aktualisieren der Daten", Toast.LENGTH_SHORT).show();
-                            Log.d("Aktualisieren der Daten nicht erfolgreich: ",
-                                    "funktioniert nicht");
+                        if (!loggedInUser.isEmpty()) {
+                            Log.d("Aktualisieren 2: ",
+                                    "funktioniert 2");
+                            boolean isUpdated = db.updateUserInfo(loggedInUser, userGeschlecht, userAlter, userGröße, userGewicht, userNiveau, userZielGewicht, userZielProtein);
+                            if (isUpdated) {
+                                Toast.makeText(getActivity(), "Erfolgreich aktualisiert", Toast.LENGTH_SHORT).show();
+                                Log.d("Aktualisieren der Daten Erfolgreich: ",
+                                        "funktioniert");
+
+                            } else {
+                                Toast.makeText(getActivity(), "Fehler Beim Aktualisieren der Daten", Toast.LENGTH_SHORT).show();
+                                Log.d("Aktualisieren der Daten nicht erfolgreich: ",
+                                        "funktioniert nicht");
+                            }
                         }
                     }
                 }

@@ -37,9 +37,9 @@ binding.bottomNavigationView.setOnItemSelectedListener(item ->{
         case R.id.profil:
             replaceFragment(new ProfilFragment());
             break;
-        case R.id.statistik:
+     /*   case R.id.statistik:
             replaceFragment(new StatistikFragment());
-            break;
+            break;   für die zukunft gedacht in der man implementieren würde, dass man seine Daten bzw. eine Statistik über einen längeren Zeitraum betrachten kann*/
     }
     return true;
         });

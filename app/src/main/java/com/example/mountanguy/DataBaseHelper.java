@@ -122,7 +122,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         values.put(COL_11, userZielProtein);
 
         int rowsAffected = db.update(TABLE_NAME, values, COL_2 + " = ?", new String[]{username});
-        db.close();
 
         Log.d("UpdateUserInfo", "Username: " + username);
         Log.d("UpdateUserInfo", "Rows affected: " + rowsAffected);
